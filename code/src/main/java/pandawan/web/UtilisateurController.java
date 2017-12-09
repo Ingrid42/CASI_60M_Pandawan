@@ -75,14 +75,9 @@ public class UtilisateurController {
 	}
 
 	
-	@RequestMapping(value="/saveUtilisateur",method=RequestMethod.POST)	
-	public String saveUtilisateur(Model model,Utilisateur user,WebRequest request){
-		Role roleUser = roleRepository.save(new Role("USER","SIMPLE UTILISATEUR"));
-		List<Role> listeRole = new ArrayList<Role>();
-		listeRole.add(roleUser);
-		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-		user.setRole(listeRole);
-		user=utilisateurRepository.save(user);
+	@RequestMapping(value="/home",method=RequestMethod.GET)	
+	public String saveUtilisateur(Model model,WebRequest request){
+
 		return "home";
 	}
 	
