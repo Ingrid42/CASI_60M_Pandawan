@@ -2,15 +2,16 @@ var isLogin;
 var isPassword;
 
 function valideLogin() {
+	console.log("passage1")
 	isLogin = null;
 	isPassword = null;
 	checkLogin();
 }
 
-//function setGlobal(varName, varValue) { window[varName] = varValue;}
 
 function checkLogin() { // check le mot de passe dans la base de données
 	// aprés le changement du champ login
+	console.log("passage2")
 	var Url = "checkUsername/" + $('#loginLogin').val();
 	$.ajax({
 		url : Url,
@@ -21,25 +22,24 @@ function checkLogin() { // check le mot de passe dans la base de données
 		success : function(result) {
 			if (result) {
 				$("#labelMessage").html("");
-				checkPasswordLogin();
+				checkPassword();
 
 			} else {
 				$("#labelMessage").html("ERREUR: <b>Login incorrect</b>");
-				if (!$('#divMessage').isActive()) {
-					$('#divMessage').toggle();
-				}
 				isLogin = false;
 			}
 		}
 	});
 }
-function checkPasswordLogin() { // check le mot de passe dans la base de données
+function checkPassword() {
+	console.log("passage3")
 	var Url = "checkPassword";
 	var user = {
 
 		login : $('#loginLogin').val(),
 		password : $('#passwordLogin').val()
 	}
+	
 	$
 			.ajax({
 				url : Url,
@@ -48,18 +48,11 @@ function checkPasswordLogin() { // check le mot de passe dans la base de donnée
 				type : 'GET',
 				data : user,
 				success : function(result) {
-
 					if (result) {
-
 						$("#labelMessage").html("");
 						$("#formLogin").submit();
 					} else {
-						$("#labelMessage").html(
-								"login: <b>Mot de passe incorrect</b>");
-						if (!$('#divMessage').isActive()) {
-							$('#divMessage').toggle();
-						}
-
+						$("#labelMessage").html("<b>Mot de passe incorrect</b>");
 						isPassword = false;
 					}
 				}
