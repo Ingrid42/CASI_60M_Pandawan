@@ -77,7 +77,6 @@ public class UtilisateurController {
 	
 	@RequestMapping(value="/home",method=RequestMethod.GET)	
 	public String saveUtilisateur(Model model,WebRequest request){
-
 		return "home";
 	}
 	
