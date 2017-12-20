@@ -22,7 +22,7 @@ import org.pac4j.core.client.Clients;
 import org.pac4j.core.context.J2EContext;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.exception.HttpAction;
-import org.pac4j.oauth.client.GitHubClient;
+import org.pac4j.oauth.client.LinkedIn2Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -85,12 +85,12 @@ public class UtilisateurController {
 			// List<Utilisateur>  utilisateurs=utilisateurRepository.findAll();
 			// model.addAttribute("ListeUtilisateurs", utilisateurs);
       final WebContext context = new J2EContext(request, response);
-      final GitHubClient gitHubClient = (GitHubClient) clients.findClient("GitHubClient");
-      model.addAttribute("gitHubAuthUrl",  getClientLocation(gitHubClient, context));
+      final LinkedIn2Client linkedinClient = (LinkedIn2Client) clients.findClient("LinkedIn2Client");
+      model.addAttribute("linkedinAuthUrl",  getClientLocation(linkedinClient, context));
       return "login";
   }
 
-  public String getClientLocation(GitHubClient client, WebContext context) throws HttpAction {
+  public String getClientLocation(LinkedIn2Client client, WebContext context) throws HttpAction {
       return client.getRedirectAction(context).getLocation();
   }
 
