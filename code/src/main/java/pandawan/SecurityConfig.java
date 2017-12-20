@@ -2,6 +2,8 @@ package pandawan;
 
 import javax.sql.DataSource;
 
+import org.pac4j.core.config.Config;
+import org.pac4j.springframework.security.web.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import org.pac4j.core.client.Clients;
+// import org.pac4j.core.client.Clients;
 // import org.pac4j.springframework.security.authentication.ClientAuthenticationProvider;
 // import org.pac4j.springframework.security.web.ClientAuthenticationFilter;
 import org.springframework.context.ApplicationContext;
@@ -21,6 +23,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -31,12 +34,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	 ApplicationContext context;
 
 	 @Autowired
-	 Clients clients;
+	 private Config config;
+
+	//  @Autowired
+	//  Clients clients;
 
 	//  @Autowired
 	//  ClientAuthenticationProvider clientProvider;
 
-	//
 	@Autowired
 	public void globalConfig(AuthenticationManagerBuilder auth,DataSource datasource ) throws Exception{
 
@@ -46,7 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.usersByUsernameQuery("select login as principal, password as credentials, 1 from utilisateur where login = ?")
 			.authoritiesByUsernameQuery("select utilisateur_login as principal, role_nom as role from utilisateur_role where utilisateur_login = ?");
 			// .rolePrefix("ROLE_");
-
 	}
 
 	// @Override
@@ -95,19 +99,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
           .logoutSuccessUrl("/")
           .permitAll();
 
-        // http.addFilterBefore(clientFilter(), UsernamePasswordAuthenticationFilter);
+			// final SecurityFilter filter = new SecurityFilter(config, "GithubClient", "");
+			//
+			// http
+			// 	.antMatcher("/github/**")
+			// 	.addFilterBefore(filter, BasicAuthenticationFilter.class); // TODO Filter role
     }
 
-    // ClientAuthenticationFilter clientFilter() {
-    //   return new ClientAuthenticationFilter(
-    //     clients,
-    //     sas(),
-    //     clientProvider
-    //   );
-    // }
-
-    @Bean
-    SessionAuthenticationStrategy sas() {
-      return new SessionFixationProtectionStrategy();
-    }
 }
