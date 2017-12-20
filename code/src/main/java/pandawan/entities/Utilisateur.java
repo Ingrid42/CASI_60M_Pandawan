@@ -29,22 +29,22 @@ public class Utilisateur implements Serializable {
 	@NotNull
 	private String password;
 	
-	@ManyToMany
-	private List<Role> role;
+//	@ManyToMany
+//	private List<Role> role;
 
 
 	public Utilisateur() {
 		super();
 	}
 
-	public Utilisateur(String login,String mail, String nom, String prenom, String password, List<Role> role) {
+	public Utilisateur(String login,String mail, String nom, String prenom, String password) {
 		super();
 		this.login=login;
 		this.mail = mail;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.password = password;
-		this.role = role;
+//		this.role = role;
 	}
 	public String getLogin() {
 		return login;
@@ -85,12 +85,12 @@ public class Utilisateur implements Serializable {
 		this.password = password;
 	}
 
-	public List<Role> getRole() {
-		return role;
-	}
-
-	public void setRole(List<Role> role) {
-		this.role = role;
-	}
+//	public List<Role> getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(List<Role> role) {
+//		this.role = role;
+//	}
 	
 }

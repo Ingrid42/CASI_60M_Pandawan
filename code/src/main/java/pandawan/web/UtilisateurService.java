@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UtilisateurService {
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
-	
+
 		@RequestMapping(value="/checkUsername/{login}", method=RequestMethod.GET)
 		public boolean login(@PathVariable(value="login") String login){
 			System.out.println("login="+login);
@@ -26,7 +26,7 @@ public class UtilisateurService {
 				return true;
 			} else return false;	
 		}
-		
+
 		@RequestMapping(value="/checkPassword", method=RequestMethod.GET)
 		public boolean password(@RequestParam(name="login")  String login,@RequestParam(name="password") String password){
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -35,10 +35,10 @@ public class UtilisateurService {
 
 			if (passwordEncoder.matches(existingPassword, dbPassword)) {
 				System.out.println("password ok");
-				return true;				
+				return true;
 			} else {
 				System.out.println("password faux");
 				return false;
-			}		
+			}
 		}
 }
