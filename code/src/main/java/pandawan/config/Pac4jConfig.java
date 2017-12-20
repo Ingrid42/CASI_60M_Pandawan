@@ -2,7 +2,7 @@ package pandawan.config;
 
 import org.pac4j.core.client.Clients;
 import org.pac4j.oauth.client.GitHubClient;
-import org.pac4j.springframework.security.authentication.ClientAuthenticationProvider;
+// import org.pac4j.springframework.security.authentication.ClientAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +19,10 @@ class Pac4jConfig {
    @Value("${oauth.github.app.secret}")
    String githubSecret;
 
-   @Bean
-   ClientAuthenticationProvider clientProvider() {
-       return new ClientAuthenticationProvider(clients());
-   }
+  //  @Bean
+  //  ClientAuthenticationProvider clientProvider() {
+  //      return new ClientAuthenticationProvider(clients());
+  //  }
 
    @Bean
    GitHubClient gitHubClient() {

@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.pac4j.core.client.Clients;
-import org.pac4j.springframework.security.authentication.ClientAuthenticationProvider;
-import org.pac4j.springframework.security.web.ClientAuthenticationFilter;
+// import org.pac4j.springframework.security.authentication.ClientAuthenticationProvider;
+// import org.pac4j.springframework.security.web.ClientAuthenticationFilter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,21 +33,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	 @Autowired
 	 Clients clients;
 
-	 @Autowired
-	 ClientAuthenticationProvider clientProvider;
+	//  @Autowired
+	//  ClientAuthenticationProvider clientProvider;
 
 	//
-	// @Autowired
-	// public void globalConfig(AuthenticationManagerBuilder auth,DataSource datasource ) throws Exception{
-	//
-	// 		auth.jdbcAuthentication()
-	// 		.passwordEncoder(new BCryptPasswordEncoder())
-	// 		.dataSource(datasource)
-	// 		.usersByUsernameQuery("select login as principal, password as credentials, 1 from utilisateur where login = ?")
-	// 		.authoritiesByUsernameQuery("select utilisateur_login as principal, role_nom as role from utilisateur_role where utilisateur_login = ?")
-	// 		.rolePrefix("ROLE_");
-	//
-	// }
+	@Autowired
+	public void globalConfig(AuthenticationManagerBuilder auth,DataSource datasource ) throws Exception{
+
+			auth.jdbcAuthentication()
+			.passwordEncoder(new BCryptPasswordEncoder())
+			.dataSource(datasource)
+			.usersByUsernameQuery("select login as principal, password as credentials, 1 from utilisateur where login = ?")
+			.authoritiesByUsernameQuery("select utilisateur_login as principal, role_nom as role from utilisateur_role where utilisateur_login = ?");
+			// .rolePrefix("ROLE_");
+
+	}
 
 	// @Override
 	// protected void configure(HttpSecurity http) throws Exception{
@@ -95,16 +95,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
           .logoutSuccessUrl("/")
           .permitAll();
 
-        http.addFilterBefore(clientFilter(), UsernamePasswordAuthenticationFilter);
+        // http.addFilterBefore(clientFilter(), UsernamePasswordAuthenticationFilter);
     }
 
-    ClientAuthenticationFilter clientFilter() {
-      return new ClientAuthenticationFilter(
-        clients,
-        sas(),
-        clientProvider
-      );
-    }
+    // ClientAuthenticationFilter clientFilter() {
+    //   return new ClientAuthenticationFilter(
+    //     clients,
+    //     sas(),
+    //     clientProvider
+    //   );
+    // }
 
     @Bean
     SessionAuthenticationStrategy sas() {

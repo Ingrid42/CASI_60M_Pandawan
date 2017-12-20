@@ -21,6 +21,7 @@ import org.pac4j.core.client.BaseClient;
 import org.pac4j.core.client.Clients;
 import org.pac4j.core.context.J2EContext;
 import org.pac4j.core.context.WebContext;
+import org.pac4j.core.exception.HttpAction;
 import org.pac4j.oauth.client.GitHubClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +31,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.access.annotation.Secured;
+// import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -76,15 +78,20 @@ public class UtilisateurController {
   Clients clients;
 
   @RequestMapping("/login")
-  String login(HttpServletRequest request, HttpServletResponse response, Model model) {
+  String login(HttpServletRequest request, HttpServletResponse response, Model model) throws HttpAction {
+		// if (isAuthenticated()) {
+		// 	return "redirect:/";
+		// }
+			// List<Utilisateur>  utilisateurs=utilisateurRepository.findAll();
+			// model.addAttribute("ListeUtilisateurs", utilisateurs);
       final WebContext context = new J2EContext(request, response);
-      final GitHubClient gitHubClient = (GitHubClient) clients.findClient(context);
+      final GitHubClient gitHubClient = (GitHubClient) clients.findClient("GitHubClient");
       model.addAttribute("gitHubAuthUrl",  getClientLocation(gitHubClient, context));
       return "login";
   }
 
-  public String getClientLocation(BaseClient client, WebContext context) {
-      return client.getRedirectAction(context, false, false).getLocation();
+  public String getClientLocation(GitHubClient client, WebContext context) throws HttpAction {
+      return client.getRedirectAction(context).getLocation();
   }
 
 	// @RequestMapping(value="/login")
@@ -92,6 +99,13 @@ public class UtilisateurController {
 	// 	// List<Utilisateur>  utilisateurs=utilisateurRepository.findAll();
 	// 	// model.addAttribute("ListeUtilisateurs", utilisateurs);
 	// 	return "login";
+	// }
+
+
+	// protected boolean isAuthenticated() {
+	// 	SecurityContext context = SecurityContextHolder.getContext();
+	// 	Authentication auth = context.getAuthentication();
+	// 	return !(auth instanceof AnonymousAuthenticationToken);
 	// }
 
 
