@@ -51,11 +51,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
-// import pandawan.dao.RoleRepository;
+import pandawan.dao.RoleRepository;
 import pandawan.dao.UtilisateurRepository;
 import pandawan.entities.Utilisateur;
-// import pandawan.entities.Role;
+import pandawan.entities.Role;
 
 @Controller
 public class UtilisateurController {
@@ -63,8 +62,9 @@ public class UtilisateurController {
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
 
-//	@Autowired
-//	private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
+
 
 	@Qualifier("sessionRegistry")
 	private SessionRegistry sessionRegistry;
@@ -79,28 +79,20 @@ public class UtilisateurController {
 
   @RequestMapping("/login")
   String login(HttpServletRequest request, HttpServletResponse response, Model model) throws HttpAction {
-		// if (isAuthenticated()) {
-		// 	return "redirect:/";
-		// }
-			// List<Utilisateur>  utilisateurs=utilisateurRepository.findAll();
-			// model.addAttribute("ListeUtilisateurs", utilisateurs);
-      final WebContext context = new J2EContext(request, response);
-      final LinkedIn2Client linkedinClient = (LinkedIn2Client) clients.findClient("LinkedIn2Client");
-      model.addAttribute("linkedinAuthUrl",  getClientLocation(linkedinClient, context));
-      return "login";
+	//	if (isAuthenticated()) {
+	//		return "redirect:/home";
+	//	}
+		List<Utilisateur>  utilisateurs=utilisateurRepository.findAll();
+		model.addAttribute("ListeUtilisateurs", utilisateurs);
+    final WebContext context = new J2EContext(request, response);
+    final LinkedIn2Client linkedinClient = (LinkedIn2Client) clients.findClient("LinkedIn2Client");
+    model.addAttribute("linkedinAuthUrl",  getClientLocation(linkedinClient, context));
+    return "login";
   }
 
   public String getClientLocation(LinkedIn2Client client, WebContext context) throws HttpAction {
       return client.getRedirectAction(context).getLocation();
   }
-
-	// @RequestMapping(value="/login")
-	// public String indexLogin(Model model){
-	// 	// List<Utilisateur>  utilisateurs=utilisateurRepository.findAll();
-	// 	// model.addAttribute("ListeUtilisateurs", utilisateurs);
-	// 	return "login";
-	// }
-
 
 	// protected boolean isAuthenticated() {
 	// 	SecurityContext context = SecurityContextHolder.getContext();

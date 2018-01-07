@@ -49,61 +49,51 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.passwordEncoder(new BCryptPasswordEncoder())
 			.dataSource(datasource)
 			.usersByUsernameQuery("select login as principal, password as credentials, 1 from utilisateur where login = ?")
-			.authoritiesByUsernameQuery("select utilisateur_login as principal, role_nom as role from utilisateur_role where utilisateur_login = ?");
-			// .rolePrefix("ROLE_");
+			.authoritiesByUsernameQuery("select utilisateur_login as principal, role_nom as role from utilisateur_role where utilisateur_login = ?")
+			.rolePrefix("ROLE_");
 	}
 
-	// @Override
-	// protected void configure(HttpSecurity http) throws Exception{
-	// http
-	// 	.authorizeRequests()
-	// 		.antMatchers("/", "/index.html").permitAll()
-	// 		.antMatchers("/css/**","/js/**","/lib/**","/img/**").permitAll()
-	// 		.anyRequest()
-	// 		.authenticated()
-	// 		.and()
-	// 	.formLogin()
-	// 		.loginPage("/login")
-	// 		.defaultSuccessUrl("/home.html")
-	// 		.failureUrl("/error.html")
-	// 		.permitAll() ;
-	//
-	// }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception{
+		http
+			.csrf().disable()
+			.authorizeRequests()
+				.antMatchers("/", "/index.html").permitAll()
+				.antMatchers("/css/**","/js/**","/lib/**","/img/**").permitAll()
+				.anyRequest()
+				.authenticated()
+				.and()
+			.formLogin()
+				.loginPage("/login")
+				.defaultSuccessUrl("/home.html")
+				.failureUrl("/error.html")
+				.permitAll()
+				.and()
+			.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/")
+				.permitAll();
+	}
 
 	@Override
-    public void configure(WebSecurity web) throws Exception {
-      web
-        .ignoring()
-        .antMatchers(
-            "/**/*.css",
-            "/**/*.png",
-            "/**/*.gif",
-            "/**/*.jpg",
-            "/**/*.ico",
-            "/**/*.js"
-        );
-    }
+	public void configure(WebSecurity web) throws Exception {
+		web
+			.ignoring()
+			.antMatchers(
+					"/**/*.css",
+					"/**/*.png",
+					"/**/*.gif",
+					"/**/*.jpg",
+					"/**/*.ico",
+					"/**/*.js"
+			);
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http
-        .csrf().disable()
-        .authorizeRequests()
-          .and()
-        .formLogin()
-          .loginPage("/login")
-          .permitAll()
-          .and()
-        .logout()
-          .logoutUrl("/logout")
-          .logoutSuccessUrl("/")
-          .permitAll();
 
 			// final SecurityFilter filter = new SecurityFilter(config, "GithubClient", "");
 			//
 			// http
 			// 	.antMatcher("/github/**")
 			// 	.addFilterBefore(filter, BasicAuthenticationFilter.class); // TODO Filter role
-    }
 
 }
