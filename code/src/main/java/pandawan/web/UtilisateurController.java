@@ -23,6 +23,7 @@ import org.pac4j.core.context.J2EContext;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.exception.HttpAction;
 import org.pac4j.oauth.client.LinkedIn2Client;
+import org.pac4j.springframework.security.authentication.Pac4jAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -79,10 +80,10 @@ public class UtilisateurController {
 
   @RequestMapping("/login")
   String login(HttpServletRequest request, HttpServletResponse response, Model model) throws HttpAction {
-	//	if (isAuthenticated()) {
-	//		return "redirect:/home";
-	//	}
-		List<Utilisateur>  utilisateurs=utilisateurRepository.findAll();
+		if (isAuthenticated()) {
+			return "redirect:/home";
+		}
+		List<Utilisateur>  utilisateurs = utilisateurRepository.findAll();
 		model.addAttribute("ListeUtilisateurs", utilisateurs);
     final WebContext context = new J2EContext(request, response);
     final LinkedIn2Client linkedinClient = (LinkedIn2Client) clients.findClient("LinkedIn2Client");
@@ -99,6 +100,12 @@ public class UtilisateurController {
 	// 	Authentication auth = context.getAuthentication();
 	// 	return !(auth instanceof AnonymousAuthenticationToken);
 	// }
+	protected boolean isAuthenticated() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication auth = context.getAuthentication();
+		System.out.println(auth);
+		return (auth != null && auth instanceof Pac4jAuthentication);
+	}
 
 
 	@RequestMapping(value="/home", method=RequestMethod.GET)

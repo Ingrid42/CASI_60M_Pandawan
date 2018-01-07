@@ -3,6 +3,7 @@ package pandawan;
 import javax.sql.DataSource;
 
 import org.pac4j.core.config.Config;
+import org.pac4j.springframework.security.web.CallbackFilter;
 import org.pac4j.springframework.security.web.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 // import org.pac4j.core.client.Clients;
@@ -33,8 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	 @Autowired
 	 ApplicationContext context;
 
-	 @Autowired
-	 private Config config;
+	@Autowired
+	private Config config;
 
 	//  @Autowired
 	//  Clients clients;
@@ -55,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
+
 		http
 			.csrf().disable()
 			.authorizeRequests()
@@ -73,6 +76,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/")
 				.permitAll();
+
+		CallbackFilter callbackFilter = new CallbackFilter(config);
+		callbackFilter.setDefaultUrl("/home");
+		
+		http
+			.antMatcher("/**")
+			.addFilterBefore(callbackFilter, BasicAuthenticationFilter.class);
 	}
 
 	@Override
@@ -88,12 +98,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 					"/**/*.js"
 			);
 	}
-
-
-			// final SecurityFilter filter = new SecurityFilter(config, "GithubClient", "");
-			//
-			// http
-			// 	.antMatcher("/github/**")
-			// 	.addFilterBefore(filter, BasicAuthenticationFilter.class); // TODO Filter role
-
 }

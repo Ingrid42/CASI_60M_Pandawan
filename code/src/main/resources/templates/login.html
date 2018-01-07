@@ -20,13 +20,13 @@
 				<div class="group" id="divMessage">
 					<label id="labelMessage"></label>
 				</div>
-				<div class="controls">
+				<!-- <div class="controls">
 					<form class="login-form" th:action="@{/login}" method="post" id="formLogin">
 						<input autocomplete="off" id="loginLogin" type="text" name="username" placeholder="Identifiant" class="form-control inputConnexion"/>
 						<input autocomplete="off" id="passwordLogin" type="password" name="password" placeholder="Mot de passe" class="form-control inputConnexion" />
 					</form>
 					<button id="submitLogin" onclick="javascript:valideLogin();">CONNEXION</button>
-				</div>
+				</div> -->
 				<a th:href="${linkedinAuthUrl}" th:class="'oauth-login-link linkedin-login'">Connect with LinkedIn</a>
 			</div>
 		</div>
