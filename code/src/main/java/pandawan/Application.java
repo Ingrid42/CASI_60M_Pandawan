@@ -20,12 +20,11 @@ public class Application {
 
 	public static void main(String[] args) {
 
-		ApplicationContext ctx=SpringApplication.run(Application.class, args);
 		// RoleRepository roleRepository = ctx.getBean(RoleRepository.class);
-		UtilisateurRepository utilisateurRepository=  ctx.getBean(UtilisateurRepository.class);
+		ApplicationContext ctx = SpringApplication.run(Application.class, args);
+		UtilisateurRepository utilisateurRepository = ctx.getBean(UtilisateurRepository.class);
 
 		if(true){
-
 		// 	Role roleAdmin = roleRepository.save(new Role("ADMIN","FAIT DES CHOSES D'ADMIN"));
 		// 	List<Role> listeRole = new ArrayList<Role>();
 		// 	listeRole.add(roleAdmin);

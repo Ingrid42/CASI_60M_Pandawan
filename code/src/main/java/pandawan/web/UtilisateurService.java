@@ -22,13 +22,13 @@ public class UtilisateurService {
 		@RequestMapping(value="/checkUsername/{login}", method=RequestMethod.GET)
 		public boolean login(@PathVariable(value="login") String login){
 			System.out.println("login="+login);
-			if(utilisateurRepository.findByLogin(login) !=null){
+			if(utilisateurRepository.findByLogin(login) != null){
 				return true;
-			} else return false;	
+			} else return false;
 		}
 
 		@RequestMapping(value="/checkPassword", method=RequestMethod.GET)
-		public boolean password(@RequestParam(name="login")  String login,@RequestParam(name="password") String password){
+		public boolean password(@RequestParam(name="login") String login, @RequestParam(name="password") String password){
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String existingPassword = password;
 			String dbPassword = utilisateurRepository.findByLogin(login).getPassword();

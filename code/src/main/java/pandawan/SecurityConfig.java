@@ -43,9 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	//  ClientAuthenticationProvider clientProvider;
 
 	@Autowired
-	public void globalConfig(AuthenticationManagerBuilder auth,DataSource datasource ) throws Exception{
-
-			auth.jdbcAuthentication()
+	public void globalConfig(AuthenticationManagerBuilder auth, DataSource datasource ) throws Exception{
+		auth
+			.jdbcAuthentication()
 			.passwordEncoder(new BCryptPasswordEncoder())
 			.dataSource(datasource)
 			.usersByUsernameQuery("select login as principal, password as credentials, 1 from utilisateur where login = ?")
