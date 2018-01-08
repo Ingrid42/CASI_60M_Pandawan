@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 //@Table(name = "role")
-public class Role implements Serializable{
+public class Role implements Serializable {
 
  @Id
  private String nom;

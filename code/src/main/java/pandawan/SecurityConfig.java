@@ -8,6 +8,7 @@ import org.pac4j.springframework.security.web.LogoutFilter;
 import org.pac4j.springframework.security.web.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,17 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-// import org.pac4j.core.client.Clients;
-// import org.pac4j.springframework.security.authentication.ClientAuthenticationProvider;
-// import org.pac4j.springframework.security.web.ClientAuthenticationFilter;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
-import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
@@ -43,8 +34,6 @@ public class SecurityConfig {
 
 		@Autowired
 		private Config config;
-
-
 
 		@Autowired
 		public void globalConfig(AuthenticationManagerBuilder auth, DataSource datasource ) throws Exception{
