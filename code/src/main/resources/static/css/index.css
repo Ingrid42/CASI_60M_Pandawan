@@ -147,7 +147,6 @@ a {
 
 /************* MAIN CONTENT INDEX ************/
 #index {
-	background: url('../img/proposition2.jpg') 50% 0 repeat-y fixed;
 	-webkit-background-size: cover;
 	background-size: cover;
 	background-position: center center;
@@ -162,6 +161,14 @@ a {
 	align-items: center;
 	height: 100vh;
 	text-align: center;
+}
+
+.backgroung-image {
+	background: url('../img/proposition2.jpg') 50% 0 repeat-y fixed;
+}
+
+.navbar-color {
+	background-color: rgba(1,1,1,.6);
 }
 
 #index h3 {
