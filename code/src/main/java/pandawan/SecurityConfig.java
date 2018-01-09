@@ -24,9 +24,27 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled=true)
 public class SecurityConfig {
+	
+    @Configuration
+    @Order(1)
+    public static class LinkedInWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+
+        @Autowired
+        private Config config;
+
+        protected void configure(final HttpSecurity http) throws Exception {
+
+            final SecurityFilter filter = new SecurityFilter(config, "LinkedIn2Client", "custom");
+
+            http
+	            .antMatcher("/home")
+	            .addFilterBefore(filter, BasicAuthenticationFilter.class)
+	            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+        }
+    }
 
 	@Configuration
-	@Order(1)
+	@Order(2)
 	public static class ConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
 		@Autowired
@@ -93,7 +111,7 @@ public class SecurityConfig {
   }
 
 	@Configuration
-	@Order(2)
+	@Order(3)
 	public static class Pac4jLogoutWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
 		@Autowired

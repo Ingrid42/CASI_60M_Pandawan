@@ -1,12 +1,13 @@
 package pandawan.config;
 
-import org.pac4j.core.authorization.authorizer.RequireAnyRoleAuthorizer;
 import org.pac4j.core.client.Clients;
 import org.pac4j.core.config.Config;
 import org.pac4j.oauth.client.LinkedIn2Client;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import pandawan.web.CustomAuthorizer;
 
 @Configuration
 class Pac4jConfig {
@@ -27,7 +28,7 @@ class Pac4jConfig {
   public Config config() {
 
     final Config config = new Config(clients());
-    config.addAuthorizer("admin", new RequireAnyRoleAuthorizer("ROLE_ADMIN"));
+    config.addAuthorizer("custom", new CustomAuthorizer());
     return config;
   }
 
