@@ -65,7 +65,6 @@ public class AppController {
 	protected boolean isAuthenticated() {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication auth = context.getAuthentication();
-		System.out.println(auth);
 		return (auth != null && auth instanceof Pac4jAuthentication);
 	}
 
@@ -73,6 +72,15 @@ public class AppController {
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String home(Model model, WebRequest request){
 		return "home";
+	}
+	
+	@RequestMapping(value="/gotohome", method=RequestMethod.GET)
+	public String goToHome(Model model, WebRequest request){
+		if (isAuthenticated()) {
+			return "redirect:/home";
+		} else {
+			return "login";
+		}
 	}
 
 }
