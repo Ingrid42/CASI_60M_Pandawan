@@ -6,4 +6,4 @@ import pandawan.entities.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Long>{
 
-}
+} 

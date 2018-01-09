@@ -13,22 +13,22 @@ import org.hibernate.validator.constraints.Email;
 @Table(name = "utilisateur")
 
 public class Utilisateur implements Serializable {
-	
+
 	@Id
 	private String login;
-	
+
 	@Email
 	private String mail;
-	
+
 	@NotNull
 	private String nom;
-	
+
 	@NotNull
 	private String prenom;
 
 	@NotNull
 	private String password;
-	
+
 	@ManyToMany
 	private List<Role> role;
 
@@ -46,6 +46,7 @@ public class Utilisateur implements Serializable {
 		this.password = password;
 		this.role = role;
 	}
+
 	public String getLogin() {
 		return login;
 	}
@@ -53,6 +54,7 @@ public class Utilisateur implements Serializable {
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 	public String getMail() {
 		return mail;
 	}
@@ -92,5 +94,5 @@ public class Utilisateur implements Serializable {
 	public void setRole(List<Role> role) {
 		this.role = role;
 	}
-	
+
 }

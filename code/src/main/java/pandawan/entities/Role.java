@@ -8,35 +8,35 @@ import javax.persistence.Id;
 
 @Entity
 //@Table(name = "role")
-public class Role implements Serializable{
+public class Role implements Serializable {
 
-	@Id 
-	private String nom;
-	
-	private String description;
-	
-	public Role() {
-		super();
-	}
-	
-	public Role(String nom, String description) {
-		super();
-		this.nom = nom;
-		this.description = description;
-	}
-	
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	
-}
+ @Id
+ private String nom;
+
+ private String description;
+
+ public Role() {
+   super();
+ }
+
+ public Role(String nom, String description) {
+   super();
+   this.nom = nom;
+   this.description = description;
+ }
+
+ public String getNom() {
+   return nom;
+ }
+ public void setNom(String nom) {
+   this.nom = nom;
+ }
+ public String getDescription() {
+   return description;
+ }
+ public void setDescription(String description) {
+   this.description = description;
+ }
+
+
+} 

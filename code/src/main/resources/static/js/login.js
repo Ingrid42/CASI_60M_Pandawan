@@ -8,7 +8,6 @@ function valideLogin() {
 	checkLogin();
 }
 
-
 function checkLogin() { // check le mot de passe dans la base de données
 	// aprés le changement du champ login
 	console.log("passage2")
@@ -23,7 +22,6 @@ function checkLogin() { // check le mot de passe dans la base de données
 			if (result) {
 				$("#labelMessage").html("");
 				checkPassword();
-
 			} else {
 				$("#labelMessage").html("ERREUR: <b>Login incorrect</b>");
 				isLogin = false;
@@ -31,30 +29,29 @@ function checkLogin() { // check le mot de passe dans la base de données
 		}
 	});
 }
+
 function checkPassword() {
 	console.log("passage3")
 	var Url = "checkPassword";
 	var user = {
-
 		login : $('#loginLogin').val(),
 		password : $('#passwordLogin').val()
 	}
-	
-	$
-			.ajax({
-				url : Url,
-				async : false,
-				cache : false,
-				type : 'GET',
-				data : user,
-				success : function(result) {
-					if (result) {
-						$("#labelMessage").html("");
-						$("#formLogin").submit();
-					} else {
-						$("#labelMessage").html("<b>Mot de passe incorrect</b>");
-						isPassword = false;
-					}
-				}
-			});
+
+	$.ajax({
+		url : Url,
+		async : false,
+		cache : false,
+		type : 'GET',
+		data : user,
+		success : function(result) {
+			if (result) {
+				$("#labelMessage").html("");
+				$("#formLogin").submit();
+			} else {
+				$("#labelMessage").html("<b>Mot de passe incorrect</b>");
+				isPassword = false;
+			}
+		}
+	});
 }

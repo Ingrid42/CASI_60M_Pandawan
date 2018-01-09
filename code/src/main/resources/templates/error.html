@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
- 		<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
- 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 		<title>CAS</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
- 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-		<link href="../static/css/index.css" th:href="@{css/index.css}" rel="stylesheet"/>	
+		<link href="../static/css/index.css" th:href="@{css/index.css}" rel="stylesheet"/>
 	</head>
-	
-	<body>
 
-		<div class="container col-xs-12">
-			<div class="logo">
-				<h4>ERREUR</h4>
+	<body>
+		<!-- NAVBAR  -->
+		<div class="navbar navbar-fixed-top custom-navbar navbar-color" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<a href="./" class="navbar-brand">PandawanApp</a>
+				</div>
 			</div>
-		</div>	
+		</div>
+
+		<!-- CONTENT -->
+		<section id="index" class="parallax-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<img src="./img/error.png" alt="Vous êtes bien connecté"/>
+					</div>
+				</div>
+			</div>
+		</section>
 	</body>
 </html>
